@@ -1,0 +1,16 @@
+.dynamic-content
+{
+    max-width: 60%;
+    margin:  64px auto ;
+    display: block;
+
+}
+
+
+
+.dynamic-content img
+{
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
