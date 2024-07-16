@@ -7,11 +7,12 @@ import Gallery from './Pages/Gallery';
 import PreviousProjects from './Pages/PreviousProjects';
 import NotFound from './components/NotFound';
 import { Routes, Route } from 'react-router-dom';
-import CreateProject from './Pages/CreateProject';
+
 import Login from './Pages/Login';
 import UserList from './Pages/UserList';
 import Projects from './Pages/Projects';
 import NewProject from './Pages/NewProject';
+import EditProjects from './Pages/EditProjects';
 
 
 
@@ -30,12 +31,13 @@ function AppContent() {
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/previous-projects" element={<PreviousProjects />} />
-        <Route path="/create" element={<CreateProject />} />
+        <Route path="/create" element={<NewProject />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/login" element={<Login />} />
         <Route path="/users" element={<UserList />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/new-project" element={<NewProject />} />
+        <Route path="/edit" element={<EditProjects />} />
+
 
       </Routes>
     </div>

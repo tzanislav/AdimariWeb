@@ -8,7 +8,7 @@ const ProjectSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: true,
+    required: false,
   },
   area: {
     type: Number, // Assuming area is a numerical value
@@ -20,11 +20,11 @@ const ProjectSchema = new mongoose.Schema({
   },
   images: {
     type: [String], // Array of image URLs or paths
-    required: true,
+    required: false,
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 

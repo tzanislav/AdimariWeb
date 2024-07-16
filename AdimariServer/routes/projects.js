@@ -22,6 +22,8 @@ router.post('/',async (req, res) => {
     });
 
     const project = await newProject.save();
+    console.log(project);
+
     res.json(project);
   } catch (err) {
     console.error(err.message);
@@ -36,6 +38,24 @@ router.get('/', async (req, res) => {
   try {
     const projects = await Project.find();
     res.json(projects);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id);
+
+    if (!project) {
+      return res.status(404).json({ msg: 'Project not found' });
+    }
+
+    await project.deleteOne({ _id: req.params.id });
+
+    res.json({ msg: 'Project removed' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

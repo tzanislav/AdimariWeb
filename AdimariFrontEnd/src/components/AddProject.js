@@ -4,6 +4,7 @@ import axios from '../axiosConfig'; // Import the configured axios instance
 import { useNavigate } from 'react-router-dom';
 
 const AddProject = () => {
+
   const [formData, setFormData] = useState({
     name: '',
     status: '',
@@ -25,6 +26,7 @@ const AddProject = () => {
   };
 
   const onSubmit = async (e) => {
+    console.log('AddProject');
     e.preventDefault();
     const newProject = { name, status, area, location, images, description };
 
@@ -55,7 +57,7 @@ const AddProject = () => {
           value={status}
           onChange={onChange}
           placeholder="Status"
-          required
+          
         />
         <input
           type="number"
@@ -71,21 +73,21 @@ const AddProject = () => {
           value={location}
           onChange={onChange}
           placeholder="Location"
-          required
+          
         />
         <input
           type="file"
           name="images"
           multiple
           onChange={onImageChange}
-          required
+          
         />
         <textarea
           name="description"
           value={description}
           onChange={onChange}
           placeholder="Description"
-          required
+          
         />
         <button type="submit">Add Project</button>
       </form>
