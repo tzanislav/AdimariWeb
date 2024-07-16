@@ -1,8 +1,0 @@
-@import "~react-image-gallery/styles/css/image-gallery.css";
-
-.galley-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
