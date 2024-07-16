@@ -1,7 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const projects = require('./routes/projects');
+
+
+const mongoConfig =
+{
+  apiKey : process.env.MONGO_DB
+}
+
 
 const app = express();
 
@@ -11,12 +19,12 @@ app.use(express.json({ extended: false }));
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://tzani:grilleD123@adimaricluster.xo73tnf.mongodb.net/?retryWrites=true&w=majority&appName=adimariCluster', {
+mongoose.connect(mongoConfig.apiKey, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('MongoDB connected...'))
-.catch(err => console.error(err));
+  .then(() => console.log('MongoDB connected...'))
+  .catch(err => console.error(err));
 
 
 app.use('/api/projects', projects);
