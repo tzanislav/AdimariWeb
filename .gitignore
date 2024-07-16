@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/AdimariFrontEnd/node_modules
+/AdimariServer/node_modules
 /.pnp
 .pnp.js
 

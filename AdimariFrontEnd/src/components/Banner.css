@@ -1,0 +1,16 @@
+.banner-conatiner
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 360px;
+    background-color: #e9e6e1;
+    padding: 30px 20px;
+
+}
+
+.banner-conatiner p
+{
+    text-align: center;
+}
