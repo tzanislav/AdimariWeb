@@ -24,6 +24,7 @@ mongoose.connect(mongoConfig.apiKey, {
   useUnifiedTopology: true,
 })
   .then(() => console.log('MongoDB connected...'))
+  .then(() => console.log(mongoose.connection.readyState))
   .catch(err => console.error(err));
 
 
@@ -34,6 +35,12 @@ app.use('/api/projects', projects);
 app.get('/', (req, res) => {
   res.send('API is running...');
 
+});
+
+// Test connection
+app.get('/test', (req, res) => {
+  console.log('Test connection successful');
+  res.send('Test connection successful');
 });
 
 const PORT = process.env.PORT || 5000;

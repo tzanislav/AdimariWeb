@@ -1,9 +1,15 @@
 import React from "react";
+import "./Footer.css";
 
 function Footer() {
   return (
-    <footer>
-      <p>&copy; 2021 Berberov</p>
-    </footer>
+    <div className="footer">
+
+      <p>Adimari Studio ltd.</p>
+
+    </div>
+
   );
 }
+
+export default Footer;

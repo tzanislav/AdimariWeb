@@ -6,13 +6,19 @@ const ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  //Type of project
+  type: {
+    type: String,
+    required: true,
+  },
+
   status: {
     type: String,
     required: false,
   },
   area: {
     type: Number, // Assuming area is a numerical value
-    required: true,
+    required: false,
   },
   location: {
     type: String,

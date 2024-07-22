@@ -1,8 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import axios from "../axiosConfig";
 import { useState, useEffect } from "react";
-import EditProject from "../components/EditProject";
 import Banner from "../components/Banner";
-import axios from '../axiosConfig'; // Import the configured axios instance
 
 function EditProjects() {
 
@@ -24,17 +24,20 @@ function EditProjects() {
     return (
         <div>
             <Banner title={'Edit Projects'} subtitle={" "} />
-            <h1>Architecture Projects</h1>
+
             {projects ? <ul>
                 {projects.map(project => (
                     <li key={project._id}>
-                        <EditProject title={project.name} id={project._id} />
+                        <Link to={`/projects/${project._id}`}> {project.name} </Link>
+
                     </li>
                 ))}
             </ul>
                 : <p>Loading....</p>}
+                 
         </div>
     );
+   
 }
 
 export default EditProjects;

@@ -2,14 +2,15 @@ import { Link } from 'react-router-dom';
 import fallbackImage from '../Assets/fallback.jpg'; // Replace with your fallback image path
 import React, { useState } from 'react';
 import './HeroComponent.css';
+import useSmoothScroll from '../hooks/useSmoothScroll';
 
 
 function HeroComponent() {
     const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-
+    const targetRef = useSmoothScroll(isVideoLoaded);
 
     return (
-        <div className='hero-image'>
+        <div className='hero-image' ref={targetRef}>
         {!isVideoLoaded && <img src={fallbackImage} alt="Fallback" className="fallback-image" />}
         <div className={`video-background ${isVideoLoaded ? 'loaded' : ''}`}>
           <video

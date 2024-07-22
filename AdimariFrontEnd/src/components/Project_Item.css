@@ -1,0 +1,68 @@
+.project-tile
+{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    padding: 20px;
+    position: relative;
+    margin: 50px;
+}
+
+.project-info
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    margin: 50px;
+
+}
+
+.project-tile h2
+{
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 10px;
+    z-index: 1;
+}
+
+
+
+.project-tile img
+{
+
+    width: 200px;
+    height: min(200px, 100%);
+    object-fit:cover;
+    border-radius: 10px ;
+    z-index: -1;
+}
+
+.project-tile button
+{
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px auto;
+
+}
+
+.project-text
+{
+    text-align: left;
+}

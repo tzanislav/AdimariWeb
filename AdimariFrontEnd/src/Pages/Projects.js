@@ -8,35 +8,33 @@ import ProjectCard from "../components/ProjectCard";
 
 function Projects() {
 
-    const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState([]);
 
-    useEffect(() => {
-      const fetchProjects = async () => {
-        try {
-          const res = await axios.get('/api/projects');
-          setProjects(res.data);
-        } catch (err) {
-          console.error(err.response.data);
-        }
-      };
-  
-      fetchProjects();
-    }, []);
-  
-    return (
-      <div>
-        <Banner title={'Projects'} subtitle={" "} />
-        <h1>Architecture Projects</h1>
-        {projects? <ul>
-          {projects.map(project => (
-            <li key={project._id}>
-              <ProjectCard title={project.name} thumbnail={project.images[0]} />
-            </li>
-          ))}
-        </ul> 
-        : <p>Loading....</p>}
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await axios.get('/api/projects');
+        setProjects(res.data);
+      } catch (err) {
+        console.error(err.response.data);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  return (
+    <div>
+      <Banner title={'Projects'} subtitle={" "} />
+      <div className="projects-container">
+        {projects ? projects.map(project => (
+          <ProjectCard project={project}  key={project._id} />
+        ))
+
+          : <p>Loading....</p>}
       </div>
-    );
+    </div>
+  );
 }
 
 export default Projects;

@@ -1,12 +1,18 @@
 import React from "react";
+import "./ProjectCard.css";
+import { Link } from "react-router-dom";
 
-function ProjectCard({ title, thumbnail }) {
+function ProjectCard({ project }) {
 
 
     return (
-        <div>
-            <h1>{title}</h1>
-            <img src={thumbnail} alt={title} />
+        <div className="project-card">
+            <Link to={`/projects/${project._id}`}>
+                <div className="project-card-textbox">
+                    <h1>{project.name}</h1>
+                </div>
+            </Link>
+            <img src={project.images[0]} alt={project.name} />
         </div>
     );
 }

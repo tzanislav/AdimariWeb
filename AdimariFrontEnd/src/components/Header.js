@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase-config'; // Update this path if needed
@@ -6,6 +7,9 @@ import './Header.css';
 import logo from '../Assets/logo128.png';
 
 function Header() {
+
+ 
+
   const [user, loading, error] = useAuthState(auth);
 
   if (loading) {
@@ -30,18 +34,7 @@ function Header() {
         >
           About
         </NavLink>
-        <NavLink
-          to="/gallery"
-          className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
-        >
-          Gallery
-        </NavLink>
-        <NavLink
-          to="/previous-projects"
-          className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
-        >
-          Previous Projects
-        </NavLink>
+
         <NavLink
           to="/projects"
           className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
@@ -50,7 +43,7 @@ function Header() {
         </NavLink>
         {user && (
           <NavLink
-            to="/create"
+            to="/create-project"
             className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
           >
             Create
