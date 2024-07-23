@@ -28,6 +28,12 @@ function Header() {
         </NavLink>
       </div>
       <nav className="nav-links">
+      <NavLink
+          to="/projects"
+          className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
+        >
+          Projects
+        </NavLink>
         <NavLink
           to="/about"
           className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
@@ -35,12 +41,7 @@ function Header() {
           About
         </NavLink>
 
-        <NavLink
-          to="/projects"
-          className={({ isActive }) => (isActive ? 'nav-button active' : 'nav-button')}
-        >
-          Projects
-        </NavLink>
+
         {user && (
           <NavLink
             to="/create-project"

@@ -9,16 +9,22 @@
   font-size: 16px;
 }
 
-a:link { 
+
+
+.center-button a:link { 
+  color: #000;
   text-decoration: none; 
 } 
-a:visited { 
+.center-button a:visited { 
+  color: #000;
   text-decoration: none; 
 } 
-a:hover { 
+.center-button a:hover { 
+  color: #000;
   text-decoration: none; 
 } 
-a:active { 
+.center-button a:active { 
+  color: #000;
   text-decoration: none; 
 }
 

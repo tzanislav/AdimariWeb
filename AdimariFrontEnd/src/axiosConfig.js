@@ -1,8 +1,7 @@
-// src/axiosConfig.js
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? process.env.MONDODB_SERVER : 'http://192.168.131.170:5000',
+  baseURL: process.env.REACT_APP_NODE_ENV === 'production' ? process.env.REACT_APP_MONDODB_SERVER : process.env.REACT_APP_MONDODB_DEV_SERVER,
 });
 
 export default instance;

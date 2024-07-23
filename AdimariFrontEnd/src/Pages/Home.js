@@ -11,8 +11,6 @@ function Home() {
   return (
     <div className="home-container">
       <HeroComponent />
-      <DynamicContent contentName="overview" />
-      <DynamicContent contentName="design" />
     </div>
   );
 }

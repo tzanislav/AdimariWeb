@@ -27,7 +27,7 @@ function HeroComponent() {
           <div className="centered-text">
             <h1>Welcome home</h1>
             <button className="center-button">
-                <Link to="/about">Learn more</Link>
+                <Link to="/projects">Learn more</Link>
             </button>
           </div>
 

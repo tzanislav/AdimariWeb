@@ -25,7 +25,7 @@ function Projects() {
 
   return (
     <div>
-      <Banner title={'Projects'} subtitle={" "} />
+      <Banner title={'Projects'} subtitle={"Our previous projects"} />
       <div className="projects-container">
         {projects ? projects.map(project => (
           <ProjectCard project={project}  key={project._id} />

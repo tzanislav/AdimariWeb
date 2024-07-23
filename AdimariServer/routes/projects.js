@@ -28,8 +28,6 @@ const upload = multer({
       cb(null, Date.now().toString() + '-' + file.originalname);
     },
   }),
-}).then( () => {
-  console.log("Upload Complete");
 });
 
 // Function to delete an image from S3
@@ -114,11 +112,23 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+
+
+
 // @route   PUT api/projects/:id
 // @desc    Update a project
 // @access  Public
-router.put('/:id', async (req, res) => {
-  const { name, status, type, area, location, description, existingImages } = req.body;
+// @route   PUT api/projects/:id
+// @desc    Update a project
+// @access  Public
+router.put('/:id', upload.array('imagesToAdd', 10), async (req, res) => {
+  const { name, status, type, area, location, description } = req.body;
+  const imagesToAdd = req.files || [];
+  const imagesToDelete = JSON.parse(req.body.imagesToDelete || '[]');
+
+  console.log('Request body:', req.body);
+  console.log('Files to add:', imagesToAdd);
+  console.log('Images to delete:', imagesToDelete);
 
   try {
     let project = await Project.findById(req.params.id);
@@ -135,17 +145,33 @@ router.put('/:id', async (req, res) => {
     project.location = location || project.location;
     project.description = description || project.description;
 
-    // Append existing images to the project
-    images = await upload.array('images', 10);
+    // Delete specified images
+    if (imagesToDelete.length > 0) {
+      project.images = project.images.filter(image => !imagesToDelete.includes(image));
+      // Optionally, delete these images from S3
+      const deleteImagePromises = imagesToDelete.map(imageUrl => {
+        const imageKey = imageUrl.split('/').pop(); // Extract image key from URL
+        return deleteImageFromS3(imageKey);
+      });
+      await Promise.all(deleteImagePromises);
+    }
+
+    // Add new images to the beginning
+    if (imagesToAdd.length > 0) {
+      const newImagePaths = imagesToAdd.map(file => file.location); // Assuming `location` has the S3 URL
+      project.images = newImagePaths.concat(project.images);
+    }
 
     // Save the updated project
     project = await project.save();
+    console.log("Project updated");
     res.json(project);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
   }
 });
+
 
 router.delete('/:id', async (req, res) => {
   try {

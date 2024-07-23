@@ -46,7 +46,8 @@ const AddProject = () => {
       });
       console.log('Project added successfully');
       //reload the page
-      navigate('/create-project', { replace: true });
+      window.location.reload();
+      
 
     } catch (err) {
       console.error(err.response.data);

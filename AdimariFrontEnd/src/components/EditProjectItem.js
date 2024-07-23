@@ -8,6 +8,7 @@ function EditProjectItem() {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [updateStatus, setUpdateStatus] = useState(null);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -31,7 +32,8 @@ function EditProjectItem() {
     area: '',
     location: '',
     images: [],
-    newImages: [],
+    imagesToAdd: [],
+    imagesToDelete: [],
     description: '',
   });
 
@@ -46,28 +48,34 @@ function EditProjectItem() {
         area: project.area || '',
         location: project.location || '',
         images: project.images || [],
-        newImages: [],
+        imagesToAdd: [],
+        imagesToDelete: [],
         description: project.description || '',
       });
     }
   }, [project]);
 
-  const { name, status, type, area, location, images, newImages, description } = formData;
+  const { name, status, type, area, location, images, imagesToAdd, imagesToDelete, description } = formData;
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onImageChange = (e) => {
-    setFormData({ ...formData, newImages: [...newImages, ...Array.from(e.target.files)] });
+    setFormData({ ...formData, imagesToAdd: [...imagesToAdd, ...Array.from(e.target.files)] });
   };
 
   const deleteImage = (index) => {
-    setFormData({ ...formData, images: images.filter((_, i) => i !== index) });
+    const imageToDelete = images[index];
+    setFormData({ 
+      ...formData, 
+      images: images.filter((_, i) => i !== index),
+      imagesToDelete: [...imagesToDelete, imageToDelete],
+    });
   };
 
   const deleteNewImage = (index) => {
-    setFormData({ ...formData, newImages: newImages.filter((_, i) => i !== index) });
+    setFormData({ ...formData, imagesToAdd: imagesToAdd.filter((_, i) => i !== index) });
   };
 
   const setImageAsFirst = (index) => {
@@ -86,29 +94,29 @@ function EditProjectItem() {
     formDataToSend.append('area', area);
     formDataToSend.append('location', location);
     formDataToSend.append('description', description);
-
-
-    // Append new image files
-    newImages.forEach((image) => {
-      formDataToSend.append('images', image);
+  
+    // Append new image files to formData
+    imagesToAdd.forEach((image) => {
+      formDataToSend.append('imagesToAdd', image);
     });
-
+  
+    // Append imagesToDelete as a JSON string
+    formDataToSend.append('imagesToDelete', JSON.stringify(imagesToDelete));
+  
     try {
       await axios.put(`/api/projects/${project._id}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-        console.log('Project updated successfully');
-      navigate('/edit-project/' + project._id, { replace: true });
+      console.log('Project updated successfully');
+      setUpdateStatus('Project updated successfully');
+      window.location.reload();
     } catch (err) {
-      console.error(err.response.data);
+      console.error(err.response?.data || err.message); // Log actual error
+      setError(err.response?.data || 'Error updating project');
     }
   };
-
-  if (!project) {
-    return <div>Loading...</div>;
-  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -121,6 +129,7 @@ function EditProjectItem() {
   return (
     <div className="edit-project">
       <Banner title="Edit Project" />
+
       <form onSubmit={onSubmit}>
         <input
           type="text"
@@ -170,6 +179,7 @@ function EditProjectItem() {
         />
         <button type="submit">Update Project</button>
       </form>
+      {updateStatus && <div>{updateStatus}</div>}
       <div>
         <h3>Current Images</h3>
         {images.map((image, index) => (
