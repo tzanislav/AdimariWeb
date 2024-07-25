@@ -23,7 +23,7 @@ function Project_Item({ project }) {
         <div className="project-tile">
 
             <div className="project-info">
-                {project ? <Link to={`/projects/${project._id}`}> <img src={project.images[0]} alt="Project" /> </Link> : <p>Loading...</p>}
+                {project ? <Link to={`/edit-project/${project._id}`}> <img src={project.images[0]} alt="Project" /> </Link> : <p>Loading...</p>}
             </div>
             <div className="project-text">
                 <h2>{project.name}</h2>
