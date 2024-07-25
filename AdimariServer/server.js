@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const projects = require('./routes/projects');
 
 
@@ -31,7 +32,12 @@ mongoose.connect(mongoConfig.apiKey, {
 
 
 app.use('/api/projects', projects);
+app.use(express.static(path.join(__dirname, '../AdimariFrontEnd/build')));
 
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../AdimariFrontEnd/build', 'index.html'));
+});
 
 // Define a simple route
 app.get('/', (req, res) => {
