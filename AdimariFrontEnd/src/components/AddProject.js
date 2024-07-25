@@ -66,8 +66,6 @@ const AddProject = () => {
   return (
     <div className="add-new-project">
       <h1>Add New Project</h1>
-
-      <button onClick={testConnection}>Test Connection</button>
       <form onSubmit={onSubmit}>
         
         <input

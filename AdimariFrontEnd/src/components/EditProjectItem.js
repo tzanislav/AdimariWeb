@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from '../axiosConfig'; // Make sure to import your axios instance
 import Banner from "./Banner";
+import './EditProjectItem.css';
 
 function EditProjectItem() {
   const { id } = useParams();
@@ -67,8 +68,8 @@ function EditProjectItem() {
 
   const deleteImage = (index) => {
     const imageToDelete = images[index];
-    setFormData({ 
-      ...formData, 
+    setFormData({
+      ...formData,
       images: images.filter((_, i) => i !== index),
       imagesToDelete: [...imagesToDelete, imageToDelete],
     });
@@ -94,15 +95,15 @@ function EditProjectItem() {
     formDataToSend.append('area', area);
     formDataToSend.append('location', location);
     formDataToSend.append('description', description);
-  
+
     // Append new image files to formData
     imagesToAdd.forEach((image) => {
       formDataToSend.append('imagesToAdd', image);
     });
-  
+
     // Append imagesToDelete as a JSON string
     formDataToSend.append('imagesToDelete', JSON.stringify(imagesToDelete));
-  
+
     try {
       await axios.put(`/api/projects/${project._id}`, formDataToSend, {
         headers: {
@@ -128,67 +129,78 @@ function EditProjectItem() {
 
   return (
     <div className="edit-project">
-      <Banner title="Edit Project" />
+      <Banner
+        title="Edit Project"
+        subtitle={name}
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundImage: `url(${images[0]}) !important`,
+          backgroundSize: 'cover',  // This ensures the image covers the entire Banner
+          backgroundPosition: 'center'  // This centers the image in the Banner
+        }}
+      />
+      <div className="edit-project-container">
 
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={onChange}
-          placeholder="Project Name"
-          required
-        />
-        <input
-          type="text"
-          name="status"
-          value={status}
-          onChange={onChange}
-          placeholder="Status"
-        />
-        <select name="type" value={type} onChange={onChange}>
-          <option value="Architecture">Architecture</option>
-          <option value="Interior">Interior</option>
-        </select>
-        <input
-          type="number"
-          name="area"
-          value={area}
-          onChange={onChange}
-          placeholder="Area"
-          required
-        />
-        <input
-          type="text"
-          name="location"
-          value={location}
-          onChange={onChange}
-          placeholder="Location"
-        />
-        <input
-          type="file"
-          name="images"
-          multiple
-          onChange={onImageChange}
-        />
-        <textarea
-          name="description"
-          value={description}
-          onChange={onChange}
-          placeholder="Description"
-        />
-        <button type="submit">Update Project</button>
-      </form>
-      {updateStatus && <div>{updateStatus}</div>}
-      <div>
-        <h3>Current Images</h3>
-        {images.map((image, index) => (
-          <div key={index}>
-            <img src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt={`Project Image ${index + 1}`} style={{ width: '200px', margin: '10px' }} />
-            <button type="button" onClick={() => deleteImage(index)}>Delete</button>
-            <button type="button" onClick={() => setImageAsFirst(index)}>Set as First</button>
-          </div>
-        ))}
+        <form onSubmit={onSubmit}>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={onChange}
+            placeholder="Project Name"
+            required
+          />
+          <input
+            type="text"
+            name="status"
+            value={status}
+            onChange={onChange}
+            placeholder="Status"
+          />
+          <select name="type" value={type} onChange={onChange}>
+            <option value="Architecture">Architecture</option>
+            <option value="Interior">Interior</option>
+          </select>
+          <input
+            type="number"
+            name="area"
+            value={area}
+            onChange={onChange}
+            placeholder="Area"
+            required
+          />
+          <input
+            type="text"
+            name="location"
+            value={location}
+            onChange={onChange}
+            placeholder="Location"
+          />
+          <input
+            type="file"
+            name="images"
+            multiple
+            onChange={onImageChange}
+          />
+          <textarea
+            name="description"
+            value={description}
+            onChange={onChange}
+            placeholder="Description"
+          />
+          <button type="submit">Update Project</button>
+        </form>
+        {updateStatus && <div>{updateStatus}</div>}
+        <div className="edit-project-images">
+          <h3>Current Images</h3>
+          {images.map((image, index) => (
+            <div key={index} className="edit-project-image">
+              <p>{`Image ${index + 1}`}</p>
+              <img src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt={`Project Image ${index + 1}`} style={{ width: '200px', margin: '10px' }} />
+              <button type="button" onClick={() => deleteImage(index)}>Delete</button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
