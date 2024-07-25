@@ -14,7 +14,9 @@ const mongoConfig =
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000'  // Adjust this if your front end uses a different URL or port
+}));
 app.use(express.json({ extended: false }));
 
 
