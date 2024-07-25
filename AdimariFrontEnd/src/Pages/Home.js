@@ -12,7 +12,7 @@ function Home() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('http://3.250.238.5/:5000/')
+    fetch('http://3.250.238.5:5000/')
       .then(response => {
         if (response.ok) {
           setMessage('Database connected');
