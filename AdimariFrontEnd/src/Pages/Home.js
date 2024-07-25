@@ -12,7 +12,7 @@ function Home() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/test')
+    fetch('http://localhost:5000/')
       .then(response => {
         if (response.ok) {
           setMessage('Database connected');
