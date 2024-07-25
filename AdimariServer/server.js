@@ -40,6 +40,9 @@ app.get('/', (req, res) => {
 });
 
 // Test connection
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Hello from the backend!' });
+});
 app.get('/test', (req, res) => {
   console.log('Test connection successful');
   res.send('Test connection successful');

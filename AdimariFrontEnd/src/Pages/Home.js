@@ -2,38 +2,30 @@ import './Home.css';
 import { useState, useEffect } from 'react';
 import DynamicContent from '../components/DynamicContent';
 import HeroComponent from '../components/HeroComponent';
-import axios from '../axiosConfig';
+import axios from 'axios';
+
+
 
 
 function Home() {
 
-  const [test, setTest] = useState(null);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const res = await axios.get('/');
-        if (res.data) {
-          setTest(res.data);
-        }
-      } catch (err) {
-        if (err.response && err.response.data) {
-          console.log("Error");
-          console.error(err.response.data);
-        } else {
-          console.error(err);
-        }
-      }
-    };
-
-    fetchProjects();
+      axios.get('http://localhost:5000/api/test')
+          .then(response => {
+              setMessage(response.data.message);
+          })
+          .catch(error => {
+              console.error('There was an error!', error);
+          });
   }, []);
 
   return (
     <div className="home-container">
 
       <HeroComponent />
-      {test ? <p> Database connected</p> : <p>No Database....</p>}
+      {message ? <p> Database connected</p> : <p>No Database....</p>}
     </div>
   );
 }
