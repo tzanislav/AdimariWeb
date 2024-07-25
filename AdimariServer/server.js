@@ -33,10 +33,6 @@ app.use('/api/projects', projects);
 app.use(express.static(path.join(__dirname, '../AdimariFrontEnd/build')));
 
 
-app.get('*', (req, res) => {
-  
-});
-
 // Define a simple route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../AdimariFrontEnd/build', 'index.html'));
