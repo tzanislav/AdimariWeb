@@ -12,20 +12,13 @@ function Home() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('http://3.250.238.5:5000/')
-      .then(response => {
-        if (response.ok) {
-          setMessage('Database connected');
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      })
-      .then(data => {
-        console.log('Data:', data);
-      })
-      .catch(error => {
-        console.error('Fetch error:', error);
-      });
+      axios.get('http://localhost:5000/api/test')
+          .then(response => {
+              setMessage(response.data.message);
+          })
+          .catch(error => {
+              console.error('There was an error!', error);
+          });
   }, []);
 
   return (
