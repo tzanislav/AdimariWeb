@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ff0a56ce.css",
+    "main.js": "/static/js/main.c3277d5e.js",
+    "static/media/fallback.jpg": "/static/media/fallback.994dc7a66dd844fc62bb.jpg",
+    "index.html": "/index.html",
+    "main.ff0a56ce.css.map": "/static/css/main.ff0a56ce.css.map",
+    "main.c3277d5e.js.map": "/static/js/main.c3277d5e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ff0a56ce.css",
+    "static/js/main.c3277d5e.js"
+  ]
+}
