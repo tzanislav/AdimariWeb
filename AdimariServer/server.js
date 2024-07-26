@@ -35,9 +35,7 @@ app.use(express.static(path.join(__dirname, '../AdimariFrontEnd/build')));
 
 // Define a simple route
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../AdimariFrontEnd/build', 'index.html'));
   res.send('API is running...');
-
 });
 
 // Test connection
