@@ -2,7 +2,7 @@ import './Home.css';
 import { useState, useEffect } from 'react';
 import DynamicContent from '../components/DynamicContent';
 import HeroComponent from '../components/HeroComponent';
-import axios from 'axios';
+import axios from '../axiosConfig';
 
 
 
@@ -12,7 +12,7 @@ function Home() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-      axios.get('http://localhost:5000/api/test')
+      axios.get('/api/test')
           .then(response => {
               setMessage(response.data.message);
           })
