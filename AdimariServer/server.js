@@ -3,21 +3,20 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
 const projects = require('./routes/projects');
 
-
-const mongoConfig =
-{
-  apiKey : process.env.MONGO_DB
-}
-
+const mongoConfig = {
+  apiKey: process.env.MONGO_DB
+};
 
 const app = express();
 
 // Middleware
-app.use(cors({ origin: true}));
+app.use(cors({ origin: true }));
 app.use(express.json({ extended: false }));
-
 
 // Connect to MongoDB
 mongoose.connect(mongoConfig.apiKey, {
@@ -25,18 +24,14 @@ mongoose.connect(mongoConfig.apiKey, {
   useUnifiedTopology: true,
 })
   .then(() => console.log('MongoDB connected...'))
-  .then(() => console.log(mongoose.connection.readyState))
   .catch(err => console.error(err));
-
 
 app.use('/api/projects', projects);
 app.use(express.static(path.join(__dirname, '../AdimariFrontEnd/build')));
 
-
 // Define a simple route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../AdimariFrontEnd/build', 'index.html'));
-  res.send('API is running...');
 });
 
 // Test connection
@@ -48,7 +43,20 @@ app.get('/test', (req, res) => {
   res.send('Test connection successful');
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on port ${PORT}`);
+const HTTP_PORT = process.env.HTTP_PORT || 80;
+const HTTPS_PORT = process.env.HTTPS_PORT || 443;
+
+// Create HTTP server
+http.createServer(app).listen(HTTP_PORT, '0.0.0.0', () => {
+  console.log(`HTTP Server is running on port ${HTTP_PORT}`);
+});
+
+// Create HTTPS server
+const sslOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/mesharch.studio/fullchain.pem'),
+};
+
+https.createServer(sslOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
+  console.log(`HTTPS Server is running on port ${HTTPS_PORT}`);
 });
