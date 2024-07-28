@@ -46,8 +46,7 @@ const AddProject = () => {
       });
       console.log('Project added successfully');
       //reload the page
-      window.location.reload();
-      
+      navigate(0);     
 
     } catch (err) {
       console.error(err.response.data);

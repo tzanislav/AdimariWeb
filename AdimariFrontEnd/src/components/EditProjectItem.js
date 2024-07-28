@@ -112,7 +112,7 @@ function EditProjectItem() {
       });
       console.log('Project updated successfully');
       setUpdateStatus('Project updated successfully');
-      window.location.reload();
+      navigate(0);
     } catch (err) {
       console.error(err.response?.data || err.message); // Log actual error
       setError(err.response?.data || 'Error updating project');
