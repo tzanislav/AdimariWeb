@@ -3,9 +3,10 @@ import { useEffect, useRef } from 'react';
 
 const useSmoothScroll = (dependency) => {
   const targetRef = useRef(null);
+  const hasScrolledRef = useRef(false);
 
   useEffect(() => {
-    if (!dependency) return;
+    if (!dependency || hasScrolledRef.current) return;
 
     // Function to perform the scroll if needed
     const handleScroll = () => {
@@ -18,6 +19,7 @@ const useSmoothScroll = (dependency) => {
         // Smooth scroll to the target div
         targetRef.current.scrollIntoView({ behavior: 'smooth' });
         console.log('scroll to target');
+        hasScrolledRef.current = true; // Set the flag to indicate scroll has been performed
       }
     };
 
